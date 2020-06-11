@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from utils import create_xor_data
+from .utils import create_xor_data
 from tqdm import tqdm
 
 
@@ -17,7 +17,7 @@ class ElmanNetwork:
         self.bias_hidden = np.random.normal(size=(self.num_outputs, 1))
 
     def __repr__(self):
-        return f"Elman Network(Inputs={self.num_inputs}, Hidden={self.num_hidden}, Contextual={self.num_contextual}, Outputs={self.num_outputs})"
+        return f"ElmanNetwork(Inputs={self.num_inputs}, Hidden={self.num_hidden}, Contextual={self.num_contextual}, Outputs={self.num_outputs})"
 
     def sigmoid(self, a):
         return 1 / (1 + np.exp(-a))
