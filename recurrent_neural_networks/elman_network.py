@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from .utils import create_xor_data
+from utils import create_xor_data
 from tqdm import tqdm
 
 
@@ -18,7 +18,6 @@ class ElmanNetwork:
             num_context (int): Number of context units.
             num_outputs (int): Number of output units.
         """
-
         assert num_hidden >= num_context, 'Context units exceed hidden'
         self.num_inputs = num_inputs
         self.num_hidden = num_hidden
