@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from utils import get_state_vowel
 
 class HopfieldNetwork:
 	def __init__(self, patterns, num_iterations):
@@ -36,21 +36,37 @@ class HopfieldNetwork:
 
 if __name__ == "__main__":
 	np.random.seed(1234)
-	patterns = np.array([[1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1],
-						 [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]])
-	net = HopfieldNetwork(patterns, 10)
+	patterns = np.array([get_state_vowel('A'),
+						 get_state_vowel('E'),
+						 get_state_vowel('I'),
+						 get_state_vowel('O'),
+						 get_state_vowel('U')])
+	net = HopfieldNetwork(patterns, 100)
 	net.run()
-	plt.figure(figsize=(6, 3))
-	plt.subplot(1, 3, 1)
-	plt.imshow(np.reshape(patterns[0, :], (4, 4)), cmap="Greys_r")
-	plt.title("Pattern 1")
-	plt.subplot(1, 3, 2)
-	plt.imshow(np.reshape(patterns[1, :], (4, 4)), cmap="Greys_r")
-	plt.title("Pattern 2")
-	plt.subplot(1, 3, 3)
-	plt.imshow(np.reshape(net.state_units, (4, 4)), cmap="Greys_r")
+
+	# Plot patterns and output
+	plt.figure(figsize=(6, 3), tight_layout=True)
+	plt.subplot(2, 3, 1)
+	plt.imshow(np.reshape(patterns[0, :], (5, 5)), cmap="Greys_r")
+	plt.title("A")
+	plt.subplot(2, 3, 2)
+	plt.imshow(np.reshape(patterns[1, :], (5, 5)), cmap="Greys_r")
+	plt.title("E")
+	plt.subplot(2, 3, 3)
+	plt.imshow(np.reshape(patterns[2, :], (5, 5)), cmap="Greys_r")
+	plt.title("I")
+	plt.subplot(2, 3, 4)
+	plt.imshow(np.reshape(patterns[3, :], (5, 5)), cmap="Greys_r")
+	plt.title("O")
+	plt.subplot(2, 3, 5)
+	plt.imshow(np.reshape(patterns[4, :], (5, 5)), cmap="Greys_r")
+	plt.title("U")
+	plt.subplot(2, 3, 6)
+	plt.imshow(np.reshape(net.state_units, (5, 5)), cmap="Greys_r")
 	plt.title("Output")
-	plt.figure(figsize=(3, 2))
+
+	# Plot energy over time
+	plt.figure(figsize=(4, 2))
 	plt.plot(net.energy)
 	plt.title("Energy")
 	plt.show()
