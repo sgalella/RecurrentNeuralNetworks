@@ -1,13 +1,12 @@
 # Recurrent Neural Networks
 Implementation of different recurrent neural networks.
 
-1. Elman network
+<p align="center">
+    <img width="600" height="208" src="images/networks.png">
+</p>
 
-2. Jordan network
 
-3. Hopfield network
 
-   
 
 ## Installation
 
