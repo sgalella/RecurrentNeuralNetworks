@@ -3,7 +3,17 @@ import matplotlib.pyplot as plt
 from utils import get_state_vowel
 
 class HopfieldNetwork:
+    """
+    Creates a Hopfield Network.
+    """
     def __init__(self, patterns):
+        """
+        Initializes the network.
+        
+        Args:
+            patterns (np.array): Group of states to be memorized by the network.
+
+        """
         self.num_units = patterns.shape[1]
         self.passes = 0
         self.state_units = np.array([1 if 2 * np.random.random() - 1 >= 0 else 0 for _ in range(self.num_units)])
@@ -13,13 +23,15 @@ class HopfieldNetwork:
         np.fill_diagonal(self.W, 0)
         self.energy = [-0.5 * np.dot(np.dot(self.state_units.T, self.W), self.state_units)]
 
-    def __generate_sequence_units(self):
+    def _generate_sequence_units(self):
+        """ Selects randomly the order to update states in the next iteration."""
         return np.random.choice(self.num_units, self.num_units)
 
     def run(self):
+        """ Runs the network until no updates occur. """
         no_update = True
         while True:
-            for unit in self.__generate_sequence_units():
+            for unit in self._generate_sequence_units():
                 unit_activation = np.dot(self.W[unit, :], self.state_units)
                 if unit_activation >= 0 and self.state_units[unit] == 0:
                     self.state_units[unit] = 1
