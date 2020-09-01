@@ -2,8 +2,9 @@
 Implementation of different recurrent neural networks.
 
 <p align="center">
-    <img width="600" height="208" src="images/networks.png">
+    <img width="738" height="416" src="images/networks.png">
 </p>
+
 
 
 
