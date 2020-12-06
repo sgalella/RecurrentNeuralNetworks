@@ -4,7 +4,17 @@ from tqdm import tqdm
 
 
 class BoltzmannMachine:
+    """
+    Creates a Boltzmann Machine.
+    """
     def __init__(self, num_units, num_hidden):
+        """
+        Initializes the network.
+
+        Args:
+            num_units (int): Number of units.
+            num_hidden (int): Number of hidden units.
+        """
         self.num_units = num_units
         self.num_hidden = num_hidden
         self.idx_unclamped_plus = range(2 * self.num_units + 3, 2 * self.num_units + 3 + self.num_hidden)
@@ -15,6 +25,16 @@ class BoltzmannMachine:
         self.logicalW = self.logicalW = self.W.copy().astype(bool)
 
     def _generate_states(self, num_occurrences, initial_threshold):
+        """
+        Generates V1, V2 and V3 for the different number of occurences.
+
+        Args:
+            num_occurrences (int): Different number of shift vector.
+            initial_threshold (float): Threshold of unit.
+
+        Returns:
+            np.array: Matrix with state vectors.
+        """
         # Create matrices V1, V2 and V3 where each row of each is one occurence where
         # V3 specifies the shift of V1 represented in V2
         V1 = np.random.choice([0, 1], size=(num_occurrences, self.num_units), p=[0.7, 0.3])
@@ -34,6 +54,19 @@ class BoltzmannMachine:
         return V
 
     def _update_state_unit(self, p, delta_E, k, V, temp):
+        """
+        Changes the state of a given unit.
+
+        Args:
+            p (float): Probability of spike.
+            delta_E (float): Energy of the given unit.
+            k (int): State unit.
+            V (np.array): Vector of states.
+            temp (float): Temperature of the system
+
+        Returns:
+            tuple: Updated state vector and energy of the unit.
+        """
         new_Vk = p < 1 / (1 + np.exp(-delta_E[k] / temp))
         delta_Vk = new_Vk - V[k]
         if delta_Vk:
@@ -42,6 +75,19 @@ class BoltzmannMachine:
         return V, delta_E
 
     def _train(self, V, idx_unclamp, num_iterations, temp, temp_relax):
+        """
+        Trains a Boltzmann Network.
+
+        Args:
+            V (np.array): Vector of states.
+            idx_unclamp (np.array): Indices of units to unclamp.
+            num_iterations (int): Number of iterations in simulated annealing.
+            temp (np.array): Temperature vector for simulated annealing.
+            temp_relax (np.array): Temperature vector for relaxation phase.
+
+        Returns:
+            np.array: Phase state matrix.
+        """
         P = np.zeros(self.W.shape)
         prob = iter(np.random.random((V.shape[0] * (num_iterations * len(idx_unclamp) * (len(temp) + len(temp_relax))))))
         for Vt in V:
@@ -62,6 +108,19 @@ class BoltzmannMachine:
 
     def run(self, num_sweeps, num_iterations, num_occurrences, temp, temp_relax, initial_threshold,
             learning_rate, stretch_factor):
+        """
+        Runs the Boltzmann machine.
+
+        Args:
+            num_sweeps (int): Number of sweeps to run the algorithm.
+            num_iterations (int): Number of iterations to repeat the simulated annealing.
+            num_occurrences (int): Different number of shift vector.
+            temp (np.array): Temperature vector for simulated annealing.
+            temp_relax (np.array): Temperature vector for relaxation phase.
+            initial_threshold (float): Threshold of unit.
+            learning_rate (float): Update constant for the learning algorithm.
+            stretch_factor (float): Squeze constant for the weight update.
+        """
         # Main loop
         for _ in tqdm(range(num_sweeps)):
             V = self._generate_states(num_occurrences, initial_threshold)
@@ -77,6 +136,13 @@ class BoltzmannMachine:
             self.W *= (1 - stretch_factor)
 
     def plot_weights(self, rows, columns):
+        """
+        Plots the weight of the hidden units.
+
+        Args:
+            rows (int): Number of rows in the plot.
+            columns (int): Number of columns in the plot.
+        """
         fig, ax = plt.subplots(rows, columns, figsize=(15, 6))
         for i in range(rows * columns):
             current = self.W[2 * self.num_units + 3 + i][:]
