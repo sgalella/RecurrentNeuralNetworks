@@ -110,9 +110,9 @@ class JordanNetwork:
         return squared_error
 
 
-if __name__ == '__main__':
+def main():
     np.random.seed(1234)
-    X_train, y_train = create_xor_data(250) 
+    X_train, y_train = create_xor_data(250)
     net = JordanNetwork(1, 2, 1, 1)
     passes = 1500
     net.train(X_train, y_train, 2, passes)
@@ -131,3 +131,7 @@ if __name__ == '__main__':
     plt.xticks(range(0, 14))
     plt.ylim([0, 0.5])
     plt.show()
+
+
+if __name__ == '__main__':
+    main()

@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from utils import get_state_vowel
 
+
 class HopfieldNetwork:
     """
     Creates a Hopfield Network.
@@ -9,7 +10,7 @@ class HopfieldNetwork:
     def __init__(self, patterns):
         """
         Initializes the network.
-        
+
         Args:
             patterns (np.array): Group of states to be memorized by the network.
 
@@ -39,7 +40,7 @@ class HopfieldNetwork:
                 elif unit_activation < 0 and self.state_units[unit] == 1:
                     self.state_units[unit] = 0
                     no_update = False
-                self.energy.append(-0.5 * np.dot(np.dot(self.state_units.T, self.W), self.state_units)) 
+                self.energy.append(-0.5 * np.dot(np.dot(self.state_units.T, self.W), self.state_units))
             self.passes += 1
             if no_update:
                 break
@@ -47,7 +48,7 @@ class HopfieldNetwork:
                 no_update = True
 
 
-if __name__ == "__main__":
+def main():
     np.random.seed(1234)
     patterns = np.array([get_state_vowel('A'),
                          get_state_vowel('E'),
@@ -83,3 +84,7 @@ if __name__ == "__main__":
     plt.plot(net.energy)
     plt.title("Energy")
     plt.show()
+
+
+if __name__ == "__main__":
+    main()

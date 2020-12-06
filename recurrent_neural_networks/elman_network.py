@@ -110,8 +110,7 @@ class ElmanNetwork:
         return squared_error
 
 
-
-if __name__ == '__main__':
+def main():
     np.random.seed(4321)
     X_train, y_train = create_xor_data(250)
     net = ElmanNetwork(1, 2, 2, 1)
@@ -129,6 +128,10 @@ if __name__ == '__main__':
     plt.xlabel('Cycle', fontsize=12)
     plt.ylabel('Error', fontsize=12)
     plt.xlim([0, 13])
-    plt.xticks(range(0,14))
+    plt.xticks(range(0, 14))
     plt.ylim([0, 0.5])
     plt.show()
+
+
+if __name__ == '__main__':
+    main()
