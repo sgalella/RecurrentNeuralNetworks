@@ -6,9 +6,6 @@ Implementation of different recurrent neural networks.
 </p>
 
 
-
-
-
 ## Installation
 
 To install the dependencies, run the following command:
@@ -17,9 +14,20 @@ To install the dependencies, run the following command:
 pip install -r requirements.txt
 ```
 
+If using Conda, you can also create an environment with the requirements:
+
+```bash
+conda env create -f environment.yml
+```
+
+By default the environment name is `recurrent-neural-networks`. To activate it run:
+
+```
+conda activate recurrent-neural-networks
+```
+
 
 
 ## Usage
 
 Check `notebooks/` to see the details and examples of each model.
-
