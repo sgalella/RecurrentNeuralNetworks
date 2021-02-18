@@ -1,5 +1,5 @@
 # Recurrent Neural Networks
-Implementation of different recurrent neural networks.
+Implementation of different [recurrent neural networks](https://en.wikipedia.org/wiki/Recurrent_neural_network).
 
 <p align="center">
     <img width="738" height="416" src="images/networks.png">
